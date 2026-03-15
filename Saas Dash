@@ -1,0 +1,23 @@
+# QuillFlow 🚀
+
+QuillFlow is a Next.js SaaS-style application built with modern web technologies.
+
+## Tech Stack
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Supabase
+- Vercel
+
+## Features
+- Authentication
+- Dashboard
+- API routes
+- Modern UI
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/mdivyanshu32/quillflow.git
