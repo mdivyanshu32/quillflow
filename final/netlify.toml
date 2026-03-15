@@ -1,0 +1,78 @@
+# netlify.toml
+# ─────────────────────────────────────────────────────────────────────────────
+# Netlify deployment configuration for a Next.js App Router project.
+# Uses @netlify/plugin-nextjs for full SSR, Edge Functions, and ISR support.
+# ─────────────────────────────────────────────────────────────────────────────
+
+[build]
+  command         = "npm run build"
+  publish         = ".next"
+  ignore          = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':!README.md'"
+
+[build.environment]
+  NODE_VERSION    = "20"
+  NPM_VERSION     = "10"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# ─── Next.js plugin (required for App Router SSR on Netlify) ─────────────────
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# ─── Production context ───────────────────────────────────────────────────────
+[context.production]
+  command = "npm run build"
+
+[context.production.environment]
+  NODE_ENV        = "production"
+  NEXT_PUBLIC_SITE_URL = "https://your-app.netlify.app"   # ← replace with real domain
+
+# ─── Deploy preview (PR previews) ────────────────────────────────────────────
+[context.deploy-preview]
+  command = "npm run build"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "production"
+  # NEXT_PUBLIC_SITE_URL is automatically set by Netlify to the preview URL
+
+# ─── Branch deploys (e.g. staging branch) ────────────────────────────────────
+[context.branch-deploy]
+  command = "npm run build"
+
+# ─── Headers ─────────────────────────────────────────────────────────────────
+# These are applied in addition to the headers set in middleware.ts.
+# Netlify-level headers are added before your app code runs.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options         = "DENY"
+    X-Content-Type-Options  = "nosniff"
+    Referrer-Policy         = "strict-origin-when-cross-origin"
+    Permissions-Policy      = "camera=(), microphone=(), geolocation=(), payment=()"
+    # Remove Netlify's default Server header
+    Server                  = ""
+
+# Cache static assets aggressively — Next.js uses content-hashed filenames
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ─── Redirects ───────────────────────────────────────────────────────────────
+# Hard redirect bare domain to www (or remove if using apex domain only)
+[[redirects]]
+  from   = "https://your-app.netlify.app/*"
+  to     = "https://www.your-domain.com/:splat"
+  status = 301
+  force  = false   # set to true once domain is confirmed
+
+# Next.js handles its own routing; this is a fallback catch-all
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+  conditions = {Role = ["admin"]}   # example: role-based redirects
