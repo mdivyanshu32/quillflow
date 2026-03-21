@@ -8,7 +8,7 @@ import { Input }     from "@/components/ui/Input";
 import { Button }    from "@/components/ui/Button";
 import { toast }     from "@/components/ui/Toaster";
 import { signIn }    from "@/lib/actions/auth";
-import type { Metadata } from "next";
+
 
 export default function LoginPage() {
   const router = useRouter();

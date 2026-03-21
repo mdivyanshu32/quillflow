@@ -14,14 +14,14 @@ export function useSession() {
 
   useEffect(() => {
     // Initial session
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    supabase.auth.getUser().then(({ data: { user } }: any) => {
       setUser(user);
       setLoading(false);
     });
 
     // Live auth state changes (sign-in, sign-out, token refresh)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      (_event: any, session: any) => {
         setUser(session?.user ?? null);
         router.refresh(); // re-run all Server Component fetches
       }

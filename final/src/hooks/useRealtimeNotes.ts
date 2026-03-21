@@ -28,7 +28,7 @@ export function useRealtimeNotes(
           table:  "order_notes",
           filter: `order_id=eq.${orderId}`,
         },
-        async (payload) => {
+        async (payload: any) => {
           const newNote = payload.new as OrderNote;
 
           // Skip if this note is already in the list (optimistic insert case)
@@ -43,7 +43,7 @@ export function useRealtimeNotes(
 
           setNotes((prev) => [
             ...prev,
-            { ...newNote, author: author ?? undefined },
+            { ...newNote, author: author ?? undefined } as any,
           ]);
         }
       )

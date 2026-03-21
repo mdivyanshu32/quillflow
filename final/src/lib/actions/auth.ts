@@ -26,7 +26,7 @@ export async function signIn(formData: FormData) {
   });
 
   if (!parsed.success) {
-    return { error: parsed.error.errors[0].message };
+    return { error: parsed.error.errors[0]?.message || "Invalid input" };
   }
 
   const supabase = createClient();
@@ -50,7 +50,7 @@ export async function signUp(formData: FormData) {
   });
 
   if (!parsed.success) {
-    return { error: parsed.error.errors[0].message };
+    return { error: parsed.error.errors[0]?.message || "Invalid input" };
   }
 
   const supabase = createClient();

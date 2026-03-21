@@ -8,8 +8,8 @@ import { DataTable }     from "@/components/ui/DataTable";
 import { OrderFilters }  from "@/components/orders/OrderComponents";
 import { getOrders }     from "@/lib/queries/orders";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { CONTENT_TYPE_OPTIONS, DEFAULT_PAGE_SIZE } from "@/lib/constants";
-import type { Order, PageProps, TableColumn } from "@/lib/types";
+import { CONTENT_TYPE_OPTIONS } from "@/lib/constants";
+import type { PageProps, TableColumn } from "@/lib/types";
 
 export const metadata: Metadata = { title: "My Orders" };
 
@@ -22,7 +22,7 @@ export default async function OrdersPage({ searchParams }: PageProps) {
 
   const { data, count, totalPages } = await getOrders({ status, search, page, sort });
 
-  const columns: TableColumn<Order>[] = [
+  const columns: TableColumn<any>[] = [
     { key: "title",        header: "Title",    width: "40%",
       render: r => <Link href={`/orders/${r.id}`} className="font-medium text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1">{r.title}</Link> },
     { key: "content_type", header: "Type",

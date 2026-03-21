@@ -6,7 +6,7 @@ import { StatsCard }         from "@/components/dashboard/StatsCard";
 import { OrdersBarChart }    from "@/components/dashboard/OrdersChart";
 import { StatusBadge }       from "@/components/ui/Badge";
 import { Button }            from "@/components/ui/Button";
-import { TableSkeleton }     from "@/components/ui/Spinner";
+
 import { getClientStats, getOrders, getOrdersByMonth } from "@/lib/queries/orders";
 import { formatCurrency, formatDate } from "@/lib/utils";
 

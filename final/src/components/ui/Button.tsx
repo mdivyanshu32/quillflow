@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
+import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 
 // ─── Variant & size maps ───────────────────────────────────────────────────────
@@ -31,6 +32,7 @@ export interface ButtonProps
   isLoading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  asChild?: boolean;
 }
 
 // ─── Component ─────────────────────────────────────────────────────────────────
@@ -42,6 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading = false,
       leftIcon,
       rightIcon,
+      asChild = false,
       className,
       children,
       disabled,
@@ -49,22 +52,34 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    const classNamesString = cn(
+      "inline-flex items-center justify-center font-medium",
+      "border rounded-lg transition-all duration-150",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2",
+      "disabled:opacity-50 disabled:cursor-not-allowed",
+      "active:scale-[0.98]",
+      variants[variant],
+      sizes[size],
+      className
+    );
+
+    if (asChild) {
+      return (
+        <Slot
+          ref={ref as any}
+          className={classNamesString}
+          {...props}
+        >
+          {children}
+        </Slot>
+      );
+    }
+
     return (
       <button
         ref={ref}
         disabled={disabled || isLoading}
-        className={cn(
-          // Base
-          "inline-flex items-center justify-center font-medium",
-          "border rounded-lg transition-all duration-150",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2",
-          "disabled:opacity-50 disabled:cursor-not-allowed",
-          "active:scale-[0.98]",
-          // Variant + size
-          variants[variant],
-          sizes[size],
-          className
-        )}
+        className={classNamesString}
         {...props}
       >
         {/* Loading spinner */}

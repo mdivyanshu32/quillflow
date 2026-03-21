@@ -2,7 +2,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect }       from "next/navigation";
+
 import { z }              from "zod";
 import { createClient }   from "@/lib/supabase/server";
 import { calculateOrderPrice } from "@/lib/utils";
@@ -52,7 +52,7 @@ export async function createOrder(
 ): Promise<{ error?: string; orderId?: string }> {
   const parsed = createOrderSchema.safeParse(input);
   if (!parsed.success) {
-    return { error: parsed.error.errors[0].message };
+    return { error: parsed.error.errors[0]?.message || "Invalid value" };
   }
 
   try {
@@ -100,7 +100,7 @@ export async function updateOrder(
 ): Promise<{ error?: string }> {
   const parsed = updateOrderSchema.safeParse(input);
   if (!parsed.success) {
-    return { error: parsed.error.errors[0].message };
+    return { error: parsed.error.errors[0]?.message || "Invalid value" };
   }
 
   try {
@@ -118,7 +118,7 @@ export async function updateOrder(
 
     const { error } = await supabase
       .from("orders")
-      .update(updates)
+      .update(updates as any)
       .eq("id", id)
       .eq("client_id", user.id)   // extra safety on top of RLS
       .in("status", ["pending"]);  // only allow edits on pending orders
@@ -174,7 +174,7 @@ export async function requestRevision(
     const { supabase, user } = await getAuthenticatedUser();
 
     // 1. Add a note explaining the revision
-    await supabase.from("order_notes").insert({
+    await (supabase as any).from("order_notes").insert({
       order_id:  orderId,
       author_id: user.id,
       content:   `Revision requested: ${reason.trim()}`,
@@ -204,13 +204,13 @@ export async function addNote(
 ): Promise<{ error?: string }> {
   const parsed = addNoteSchema.safeParse(input);
   if (!parsed.success) {
-    return { error: parsed.error.errors[0].message };
+    return { error: parsed.error.errors[0]?.message || "Invalid value" };
   }
 
   try {
     const { supabase, user } = await getAuthenticatedUser();
 
-    const { error } = await supabase.from("order_notes").insert({
+    const { error } = await (supabase as any).from("order_notes").insert({
       order_id:  parsed.data.order_id,
       author_id: user.id,
       content:   parsed.data.content,

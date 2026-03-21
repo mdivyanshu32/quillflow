@@ -1,9 +1,7 @@
-// src/app/not-found.tsx
+"use client";
 import Link         from "next/link";
 import { Button }  from "@/components/ui/Button";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Page not found" };
 
 export default function NotFound() {
   return (

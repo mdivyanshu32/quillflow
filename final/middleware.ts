@@ -13,10 +13,10 @@ import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
 // ─── Paths that require an authenticated session ──────────────────────────────
-const PROTECTED_PREFIXES = ["/dashboard", "/orders", "/settings"];
+
 
 // ─── Paths only for unauthenticated users ─────────────────────────────────────
-const AUTH_ONLY_PATHS = ["/login", "/register", "/forgot-password"];
+
 
 // ─── Blocked path patterns (basic WAF layer) ─────────────────────────────────
 const BLOCKED_PATTERNS = [

@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
-  helperText?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  containerClassName?: string;
+  label?: string | undefined;
+  error?: string | undefined;
+  helperText?: string | undefined;
+  leftIcon?: React.ReactNode | undefined;
+  rightIcon?: React.ReactNode | undefined;
+  containerClassName?: string | undefined;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(

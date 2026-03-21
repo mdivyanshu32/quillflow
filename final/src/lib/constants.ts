@@ -1,4 +1,4 @@
-import type { ContentType, ContentTone, OrderStatus, SelectOption } from "./types";
+import type { ContentType, OrderStatus, SelectOption } from "./types";
 
 // ─── Navigation ────────────────────────────────────────────────────────────────
 export const NAV_LINKS = [

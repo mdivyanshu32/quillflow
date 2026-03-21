@@ -6,7 +6,7 @@ import { cn, getInitials } from "@/lib/utils";
 import { NAV_LINKS } from "@/lib/constants";
 import type { Profile } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
-import { createBrowserClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { toast } from "@/components/ui/Toaster";
 
 // ─── Icons (inline SVG to avoid heavy icon dep) ────────────────────────────────
@@ -52,7 +52,7 @@ interface SidebarProps {
 export function Sidebar({ profile }: SidebarProps) {
   const pathname  = usePathname();
   const router    = useRouter();
-  const supabase  = createBrowserClient();
+  const supabase  = createClient();
 
   async function handleSignOut() {
     await supabase.auth.signOut();

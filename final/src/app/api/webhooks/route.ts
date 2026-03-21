@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     if (event.type === "order.status_updated" && event.orderId && event.status) {
       const { error } = await supabase
         .from("orders")
-        .update({ status: event.status as never })
+        .update({ status: event.status })
         .eq("id", event.orderId);
 
       if (error) throw error;

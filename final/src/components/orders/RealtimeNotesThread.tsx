@@ -49,7 +49,6 @@ export function RealtimeNotesThread({
     <NotesThread
       notes={notes}
       currentUserId={currentUserId}
-      orderId={orderId}
       onAddNote={handleAddNote}
     />
   );

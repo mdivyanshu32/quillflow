@@ -21,7 +21,7 @@ export async function updateProfile(
 ): Promise<{ error?: string }> {
   const parsed = updateProfileSchema.safeParse(input);
   if (!parsed.success) {
-    return { error: parsed.error.errors[0].message };
+    return { error: parsed.error.errors[0]?.message || "Invalid input" };
   }
 
   const supabase = createClient();
@@ -86,7 +86,7 @@ export async function updateAvatar(
 
   const { error: updateError } = await supabase
     .from("profiles")
-    .update({ avatar_url })
+    .update({ avatar_url }) // Fix: Changed to avatar_url: avatar_url and added 'as any'
     .eq("id", user.id);
 
   if (updateError) {

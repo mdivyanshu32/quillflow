@@ -57,10 +57,10 @@ export function OrderStatusTimeline({ history }: OrderStatusTimelineProps) {
 
 
 // ─── NotesThread.tsx ────────────────────────────────────────────────────────────
-"use client";
+
 
 import { useState } from "react";
-import { cn, getInitials, formatRelativeDate } from "@/lib/utils";
+import { getInitials, formatRelativeDate } from "@/lib/utils";
 import type { OrderNote } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { Textarea } from "@/components/ui/Textarea";
@@ -69,15 +69,14 @@ interface NotesThreadProps {
   notes: OrderNote[];
   currentUserId: string;
   orderId: string;
-  onAddNote: (content: string) => Promise<void>;
+  onAddNote: (content: string) => Promise<any>;
 }
 
 export function NotesThread({
   notes,
   currentUserId,
-  orderId,
   onAddNote,
-}: NotesThreadProps) {
+}: Omit<NotesThreadProps, "orderId">) {
   const [content, setContent] = useState("");
   const [isPending, setIsPending] = useState(false);
 
@@ -176,13 +175,13 @@ export function NotesThread({
 
 
 // ─── OrderFilters.tsx ───────────────────────────────────────────────────────────
-"use client";
+
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
-import { Button } from "@/components/ui/Button";
+
 import { STATUS_FILTER_OPTIONS, SORT_OPTIONS } from "@/lib/constants";
 
 export function OrderFilters() {

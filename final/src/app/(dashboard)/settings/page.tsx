@@ -8,7 +8,7 @@ import { Select }           from "@/components/ui/Select";
 import { Button }           from "@/components/ui/Button";
 import { Modal }            from "@/components/ui/Modal";
 import { toast }            from "@/components/ui/Toaster";
-import { MOCK_PROFILE }     from "@/mock-data";
+
 import { TIMEZONE_OPTIONS } from "@/lib/constants";
 import { getInitials }      from "@/lib/utils";
 
@@ -28,11 +28,11 @@ export default function SettingsPage() {
 
   // Profile form state
   const [form, setForm] = useState({
-    full_name:  MOCK_PROFILE.full_name ?? "",
-    company:    MOCK_PROFILE.company   ?? "",
-    phone:      MOCK_PROFILE.phone     ?? "",
-    timezone:   MOCK_PROFILE.timezone,
-    email_notifications: MOCK_PROFILE.email_notifications,
+    full_name:  "",
+    company:    "",
+    phone:      "",
+    timezone:   "UTC",
+    email_notifications: false,
   });
 
   // Password form state

@@ -113,7 +113,7 @@ export type Database = {
           content:     string;
           is_internal?: boolean;
         };
-        Update: never;
+        Update: Record<string, never>;
       };
 
       order_status_history: {
@@ -126,12 +126,13 @@ export type Database = {
           note:        string | null;
           changed_at:  string;
         };
-        Insert: never; // append-only via trigger
-        Update: never;
+        Insert: Record<string, never>; // append-only via trigger
+        Update: Record<string, never>;
       };
     };
 
     Views:   Record<string, never>;
+    CompositeTypes: Record<string, never>;
 
     Functions: {
       get_client_stats: {

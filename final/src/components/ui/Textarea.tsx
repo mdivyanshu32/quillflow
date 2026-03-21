@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils";
 
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string;
-  error?: string;
-  helperText?: string;
-  autoResize?: boolean;
-  containerClassName?: string;
+  label?: string | undefined;
+  error?: string | undefined;
+  helperText?: string | undefined;
+  autoResize?: boolean | undefined;
+  containerClassName?: string | undefined;
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(

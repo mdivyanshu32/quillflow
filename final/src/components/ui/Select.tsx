@@ -6,12 +6,12 @@ import type { SelectOption } from "@/lib/types";
 
 export interface SelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  label?: string;
-  error?: string;
-  helperText?: string;
+  label?: string | undefined;
+  error?: string | undefined;
+  helperText?: string | undefined;
   options: SelectOption[];
-  placeholder?: string;
-  containerClassName?: string;
+  placeholder?: string | undefined;
+  containerClassName?: string | undefined;
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(

@@ -6,7 +6,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import type { Database } from "@/lib/supabase/database.types";
 
-export function createClient() {
+export function createClient(): any {
   const cookieStore = cookies();
 
   return createServerClient<Database>(
@@ -17,7 +17,7 @@ export function createClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: any[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
@@ -35,7 +35,7 @@ export function createClient() {
 // ─── Admin client — uses service_role key, bypasses RLS ─────────────────────
 // Only import this in trusted server-side code (webhooks, admin actions).
 // NEVER expose to the browser.
-export function createAdminClient() {
+export function createAdminClient(): any {
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,

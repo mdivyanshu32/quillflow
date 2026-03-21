@@ -14,15 +14,15 @@ import { CONTENT_TYPE_OPTIONS, CONTENT_TONE_OPTIONS } from "@/lib/constants";
 import type { PageProps }         from "@/lib/types";
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const order = await getOrderById(params.id);
+  const order = await getOrderById(params.id as string);
   return { title: order?.title ?? "Order detail" };
 }
 
 export default async function OrderDetailPage({ params }: PageProps) {
   const [order, notes, history, { data: { user } }] = await Promise.all([
-    getOrderById(params.id),
-    getOrderNotes(params.id),
-    getOrderStatusHistory(params.id),
+    getOrderById(params.id as string),
+    getOrderNotes(params.id as string),
+    getOrderStatusHistory(params.id as string),
     createClient().auth.getUser(),
   ]);
 
