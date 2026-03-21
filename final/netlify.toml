@@ -64,15 +64,4 @@
 
 # ─── Redirects ───────────────────────────────────────────────────────────────
 # Hard redirect bare domain to www (or remove if using apex domain only)
-[[redirects]]
-  from   = "https://your-app.netlify.app/*"
-  to     = "https://www.your-domain.com/:splat"
-  status = 301
-  force  = false   # set to true once domain is confirmed
-
-# Next.js handles its own routing; this is a fallback catch-all
-[[redirects]]
-  from   = "/*"
-  to     = "/index.html"
-  status = 200
-  conditions = {Role = ["admin"]}   # example: role-based redirects
+["admin"]}   # example: role-based redirects
