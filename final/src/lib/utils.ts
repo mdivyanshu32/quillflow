@@ -98,3 +98,11 @@ export function playCyberSwoosh() {
     // Ignore audio initialization errors
   }
 }
+
+export function playErrorBuzzer() {
+  if (typeof window === "undefined") return;
+  try {
+    const audio = new Audio("/error.mp3.mp3");
+    audio.play().catch(e => console.error("Audio error blocked:", e));
+  } catch (e) {}
+}
