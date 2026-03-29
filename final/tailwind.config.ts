@@ -57,11 +57,23 @@ const config: Config = {
           "0%":   { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition:  "200% 0" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "1", boxShadow: "0 0 15px 0px rgba(99, 102, 241, 0.4)" },
+          "50%": { opacity: "0.8", boxShadow: "0 0 25px 5px rgba(99, 102, 241, 0.7)" },
+        },
       },
       animation: {
         "fade-in":  "fade-in 0.2s ease-out",
         "slide-up": "slide-up 0.25s ease-out",
         "shimmer":  "shimmer 1.5s infinite linear",
+        "float": "float 6s ease-in-out infinite",
+        "float-delayed": "float 6s ease-in-out 3s infinite",
+        "pulse-glow": "pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "spin-slow": "spin 8s linear infinite",
       },
 
       // ── Safelist dynamic classes (status badge colours) ───────────────────
