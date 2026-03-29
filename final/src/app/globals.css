@@ -9,7 +9,7 @@
   }
 
   * {
-    @apply border;
+    /* @apply border; removed debug wildcard */
   }
 
   html {
