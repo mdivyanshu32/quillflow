@@ -11,6 +11,8 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 import { CONTENT_TYPE_OPTIONS } from "@/lib/constants";
 import type { PageProps, TableColumn } from "@/lib/types";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = { title: "My Orders" };
 
 export default async function OrdersPage({ searchParams }: PageProps) {

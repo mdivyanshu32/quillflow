@@ -50,13 +50,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             id={selectId}
             className={cn(
-              "w-full h-9 pl-3 pr-8 rounded-lg border bg-white text-sm text-gray-900",
-              "border-gray-200 transition-colors appearance-none cursor-pointer",
-              "focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent",
-              "dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700",
-              "dark:focus:ring-gray-100",
-              error && "border-red-400 focus:ring-red-500",
-              "disabled:opacity-50 disabled:cursor-not-allowed",
+              "w-full h-9 pl-3 pr-8 rounded-lg border text-sm transition-colors appearance-none cursor-pointer",
+              "bg-[#0a0f1c]/50 text-indigo-100 border-indigo-500/20",
+              "focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50",
+              "dark:bg-[#0a0f1c]/50 dark:text-indigo-100 dark:border-indigo-500/20",
+              "dark:focus:ring-cyan-500/30",
+              error && "border-red-500/50 focus:ring-red-500/30",
+              "disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-900/50",
               className
             )}
             {...props}

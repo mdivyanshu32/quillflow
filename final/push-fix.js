@@ -1,23 +1,10 @@
 const { execSync } = require('child_process');
-
-function run(cmd) {
-  try {
-    console.log(execSync(cmd, { encoding: 'utf8' }));
-  } catch (e) {
-    console.log(e.stdout ? e.stdout.toString() : e.message);
-  }
-}
-
-// Rename specific files to enforce proper casing in git
-const filesToFix = ["input", "button", "toaster", "badge", "datatable", "modal", "select", "spinner", "textarea"];
-
-for (const f of filesToFix) {
-  const Proper = f.charAt(0).toUpperCase() + f.slice(1);
-  run(`git mv src/components/ui/${f}.tsx src/components/ui/${Proper}2.tsx`);
-  run(`git mv src/components/ui/${Proper}2.tsx src/components/ui/${Proper}.tsx`);
-}
-
-// Add, commit and push
-run('git add .');
-run('git commit -m "build: fix linux case-sensitive component imports, ssg errors, and husky configs"');
-run('git push');
+try {
+  console.log("Committing routing and UI overlays...");
+  execSync('git add .', { stdio: 'inherit' });
+  execSync('git commit -m "fix: force dark mode primitives and patch SSG Vercel 404 bugs via dynamic routing"', { stdio: 'inherit' });
+  
+  console.log("Pushing diagnostic patch to Vercel...");
+  execSync('git push', { stdio: 'inherit' });
+  console.log("SUCCESS!");
+} catch (e) {}

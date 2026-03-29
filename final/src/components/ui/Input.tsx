@@ -58,20 +58,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             className={cn(
               // Base
-              "w-full h-9 rounded-lg border bg-white text-sm text-gray-900",
-              "placeholder:text-gray-400 transition-colors",
-              // Border & focus
-              "border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-0 focus:border-transparent",
-              // Dark mode
-              "dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 dark:placeholder:text-gray-500",
-              "dark:focus:ring-gray-100",
+              "w-full h-9 rounded-lg border text-sm transition-colors",
+               // Cyber HUD styling overrides native inputs
+              "bg-[#0a0f1c]/50 text-indigo-100 border-indigo-500/20 placeholder:text-indigo-400/30",
+              "focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50",
+              "dark:bg-[#0a0f1c]/50 dark:text-indigo-100 dark:border-indigo-500/20 dark:placeholder:text-indigo-400/30",
+              "dark:focus:ring-cyan-500/30",
               // Error state
-              error && "border-red-400 focus:ring-red-500 dark:border-red-600",
+              error && "border-red-500/50 focus:ring-red-500/30 dark:border-red-500/50",
               // Icon padding
               leftIcon ? "pl-9" : "pl-3",
               rightIcon ? "pr-9" : "pr-3",
               // Disabled
-              "disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 dark:disabled:bg-gray-800",
+              "disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-900/50",
               className
             )}
             {...props}
