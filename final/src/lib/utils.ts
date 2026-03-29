@@ -92,39 +92,8 @@ export function calculateOrderPrice(
 export function playCyberSwoosh() {
   if (typeof window === "undefined") return;
   try {
-    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-    if (!AudioContext) return;
-    const ctx = new AudioContext();
-    
-    // Create a 1.5-second buffer of white noise
-    const bufferSize = ctx.sampleRate * 1.5; 
-    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-    }
-    
-    const noise = ctx.createBufferSource();
-    noise.buffer = buffer;
-    
-    // Lowpass filter sweeping down creates a "fahhhh" sound
-    const filter = ctx.createBiquadFilter();
-    filter.type = "lowpass";
-    filter.Q.value = 0.5;
-    filter.frequency.setValueAtTime(6000, ctx.currentTime);
-    filter.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 1.0);
-    
-    // Gain envelope (fade in fast, fade out exponentially)
-    const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 0.05);
-    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.2);
-    
-    noise.connect(filter);
-    filter.connect(gain);
-    gain.connect(ctx.destination);
-    
-    noise.start();
+    const audio = new Audio("/fahhh.mp3.mp3");
+    audio.play().catch(e => console.error("Audio playback blocked:", e));
   } catch (e) {
     // Ignore audio initialization errors
   }
