@@ -17,32 +17,29 @@ export function Topbar({ title, breadcrumbs, actions, className }: TopbarProps) 
   return (
     <header
       className={cn(
-        "h-14 shrink-0 flex items-center justify-between px-6",
-        "border-b border-gray-200 dark:border-gray-800",
-        "bg-white dark:bg-gray-950",
+        "h-14 shrink-0 flex items-center justify-between px-6 z-20",
+        "border-b border-white/5 bg-black/40 backdrop-blur-2xl",
         className
       )}
     >
       {/* Left: title + breadcrumbs */}
       <div className="flex items-center gap-2 min-w-0">
         {breadcrumbs && breadcrumbs.length > 0 ? (
-          <nav className="flex items-center gap-1.5" aria-label="Breadcrumb">
+          <nav className="flex items-center gap-1.5 font-mono uppercase tracking-widest text-[11px]" aria-label="Breadcrumb">
             {breadcrumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 {i > 0 && (
-                  <svg className="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+                  <span className="text-gray-600">/</span>
                 )}
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
-                    className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors truncate"
+                    className="text-gray-500 hover:text-cyan-400 transition-colors truncate"
                   >
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  <span className="font-medium text-cyan-400 truncate drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
                     {crumb.label}
                   </span>
                 )}
@@ -50,15 +47,15 @@ export function Topbar({ title, breadcrumbs, actions, className }: TopbarProps) 
             ))}
           </nav>
         ) : (
-          <h1 className="text-base font-semibold text-gray-900 dark:text-gray-100 truncate">
-            {title}
+          <h1 className="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest truncate drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
+            [ {title} ]
           </h1>
         )}
       </div>
 
       {/* Right: action buttons */}
       {actions && (
-        <div className="flex items-center gap-2 shrink-0 ml-4">
+        <div className="flex items-center gap-2 shrink-0 ml-4 font-mono">
           {actions}
         </div>
       )}

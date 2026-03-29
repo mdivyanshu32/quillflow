@@ -56,33 +56,38 @@ export function Sidebar({ profile }: SidebarProps) {
 
   async function handleSignOut() {
     await supabase.auth.signOut();
-    toast.success("Signed out");
+    toast.success("Connection terminated");
     router.push("/login");
     router.refresh();
   }
 
   return (
     <aside className={cn(
-      "flex flex-col w-56 shrink-0 h-screen sticky top-0",
-      "bg-gray-50 border-r border-gray-200",
-      "dark:bg-gray-950 dark:border-gray-800",
+      "flex flex-col w-64 shrink-0 h-screen sticky top-0 z-30 font-mono",
+      "bg-[#0a0f1c]/80 backdrop-blur-2xl border-r border-indigo-500/20 shadow-[4px_0_24px_rgba(79,70,229,0.05)]",
     )}>
       {/* Logo */}
-      <div className="px-4 py-5 border-b border-gray-200 dark:border-gray-800">
-        <Link href="/dashboard" className="flex items-center gap-2 group">
-          <div className="h-7 w-7 rounded-lg bg-gray-900 dark:bg-white flex items-center justify-center shrink-0">
-            <svg className="h-4 w-4 text-white dark:text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
+      <div className="px-5 py-6 border-b border-indigo-500/10">
+        <Link href="/dashboard" className="flex items-center gap-3 group">
+          <div className="h-8 w-8 rounded bg-indigo-500/20 flex items-center justify-center shrink-0 border border-indigo-500/30 group-hover:bg-indigo-500/30 transition-colors">
+            <svg className="h-4 w-4 text-cyan-400 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="square" strokeLinejoin="miter" d="M12 2L2 7l10 5 10-5-10-5zm0 20l-10-5m10 5l10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <span className="font-semibold text-sm text-gray-900 dark:text-gray-100 group-hover:text-gray-700 transition-colors">
-            Quillflow
-          </span>
+          <div className="flex flex-col">
+            <span className="font-bold tracking-widest text-sm text-indigo-100 uppercase drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]">
+              Quillflow
+            </span>
+            <span className="text-[9px] text-cyan-500 tracking-widest uppercase opacity-70">
+              Ops_Terminal
+            </span>
+          </div>
         </Link>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-2 py-3 space-y-0.5 overflow-y-auto">
+      <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+        <div className="text-[10px] text-indigo-400/50 mb-4 px-2 tracking-widest uppercase">Navigation Systems</div>
         {NAV_LINKS.map(({ href, label, icon }) => {
           const isActive = pathname === href || pathname.startsWith(`${href}/`);
           const Icon = ICON_MAP[icon as keyof typeof ICON_MAP];
@@ -91,13 +96,13 @@ export function Sidebar({ profile }: SidebarProps) {
               key={href}
               href={href}
               className={cn(
-                "flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors",
+                "flex items-center gap-3 px-3 py-2.5 rounded text-[11px] tracking-widest uppercase transition-all duration-200 border",
                 isActive
-                  ? "bg-white text-gray-900 shadow-sm font-medium dark:bg-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700"
-                  : "text-gray-600 hover:bg-white hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-gray-200"
+                  ? "bg-indigo-500/10 text-cyan-300 border-indigo-500/30 shadow-[0_0_15px_rgba(79,70,229,0.15)]"
+                  : "text-gray-400 border-transparent hover:bg-white/5 hover:text-indigo-200 hover:border-white/10"
               )}
             >
-              {Icon && <Icon />}
+              {Icon && <div className={cn("transition-transform", isActive ? "scale-110 text-cyan-400" : "")}><Icon /></div>}
               {label}
             </Link>
           );
@@ -105,31 +110,31 @@ export function Sidebar({ profile }: SidebarProps) {
       </nav>
 
       {/* User section */}
-      <div className="p-3 border-t border-gray-200 dark:border-gray-800">
-        <Link href="/settings" className="flex items-center gap-2.5 mb-2 px-1 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors group">
+      <div className="p-4 border-t border-indigo-500/10 bg-black/20">
+        <div className="flex items-center gap-3 mb-4 px-2 py-2 rounded bg-white/[0.02] border border-white/5 group">
           {/* Avatar */}
-          <div className="h-7 w-7 rounded-full bg-blue-100 dark:bg-blue-950 flex items-center justify-center text-xs font-medium text-blue-700 dark:text-blue-300 shrink-0">
-            {profile?.full_name ? getInitials(profile.full_name) : "?"}
+          <div className="h-8 w-8 rounded bg-cyan-900/30 flex items-center justify-center text-[10px] font-bold text-cyan-400 shrink-0 border border-cyan-500/20 shadow-[0_0_10px_rgba(34,211,238,0.2)]">
+            {profile?.full_name ? getInitials(profile.full_name) : "USR"}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-gray-900 dark:text-gray-100 truncate">
-              {profile?.full_name ?? "My Account"}
+            <p className="text-[11px] font-bold text-gray-200 truncate uppercase tracking-wider">
+              {profile?.full_name ?? "OPERATOR"}
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
-              {profile?.company ?? "Settings"}
+            <p className="text-[9px] text-cyan-500/70 truncate tracking-widest uppercase">
+              {profile?.company ?? "SECURE_LINK"}
             </p>
           </div>
-        </Link>
+        </div>
         <Button
           variant="ghost"
           size="sm"
           onClick={handleSignOut}
-          className="w-full justify-start text-gray-500 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400"
+          className="w-full justify-start text-[10px] uppercase font-mono tracking-widest text-red-400/70 hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 h-auto py-2 transition-all"
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <svg className="h-3.5 w-3.5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
           </svg>
-          Sign out
+          <span className="translate-y-[1px]">Terminate Session</span>
         </Button>
       </div>
     </aside>
