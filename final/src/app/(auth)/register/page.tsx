@@ -27,16 +27,21 @@ export default function RegisterPage() {
     if (Object.keys(errs).length) { setErrors(errs); return; }
 
     setLoading(true);
-    const fd = new FormData();
-    Object.entries(form).forEach(([k, v]) => fd.set(k, v));
-    const result = await signUp(fd);
-    setLoading(false);
-
-    if (result?.error) {
-      toast.error(result.error);
-    } else {
-      toast.success(result.success ?? "Account created! Check your email.");
-      router.push("/login");
+    try {
+      const fd = new FormData();
+      Object.entries(form).forEach(([k, v]) => fd.set(k, v));
+      const result = await signUp(fd);
+      
+      if (result?.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(result?.success ?? "Account created! Check your email.");
+        router.push("/login");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "An unexpected error occurred communicating with the server.");
+    } finally {
+      setLoading(false);
     }
   }
 

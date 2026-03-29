@@ -26,16 +26,21 @@ export default function LoginPage() {
     if (Object.keys(errs).length) { setErrors(errs); return; }
 
     setLoading(true);
-    const fd = new FormData();
-    fd.set("email", email); fd.set("password", password);
-    const result = await signIn(fd);
-    setLoading(false);
+    try {
+      const fd = new FormData();
+      fd.set("email", email); fd.set("password", password);
+      const result = await signIn(fd);
 
-    if (result?.error) {
-      toast.error(result.error);
-    } else {
-      router.push("/dashboard");
-      router.refresh();
+      if (result?.error) {
+        toast.error(result.error);
+      } else {
+        router.push("/dashboard");
+        router.refresh();
+      }
+    } catch (err: any) {
+      toast.error(err.message || "An unexpected error occurred communicating with the server.");
+    } finally {
+      setLoading(false);
     }
   }
 
