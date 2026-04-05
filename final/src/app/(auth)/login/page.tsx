@@ -8,7 +8,6 @@ import { Input }     from "@/components/ui/Input";
 import { Button }    from "@/components/ui/Button";
 import { toast }     from "@/components/ui/Toaster";
 import { signIn }    from "@/lib/actions/auth";
-import { playCyberSwoosh, playErrorBuzzer } from "@/lib/utils";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -25,7 +24,6 @@ export default function LoginPage() {
     if (email && !/\S+@\S+\.\S+/.test(email)) errs.email = "Enter a valid email";
     if (Object.keys(errs).length) { 
       setErrors(errs); 
-      playErrorBuzzer();
       return; 
     }
 
@@ -36,11 +34,9 @@ export default function LoginPage() {
       const result = await signIn(fd);
 
       if (result?.error) {
-        playErrorBuzzer();
         toast.error(result.error);
       } else {
         toast.success("Authentication sequence authorized.");
-        playCyberSwoosh();
         router.push("/dashboard");
         router.refresh();
       }
